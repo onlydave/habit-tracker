@@ -54,7 +54,7 @@ services:
     image: habit-tracker:latest
     container_name: habit-tracker
     ports:
-      - "8080:80"
+      - "9090:80"  # Change 9090 to any free port on your TrueNAS host
     volumes:
       - habit-data:/app/data
     restart: unless-stopped
@@ -63,7 +63,17 @@ volumes:
   habit-data:
 ```
 
-7. Click **Install**.
+### 3. Configure the "Web UI" Button
+To get the "Web UI" button, you must also fill out the **Portal Configuration** section on the same installation screen:
+
+1. Scroll down to **Portal Configuration**.
+2. **Portal Name**: Enter `Web UI`.
+3. **Protocol**: Select `HTTP`.
+4. **Port**: Enter the **host port** you chose in the YAML (e.g., `9090`).
+5. Click **Install**.
+
+> [!TIP]
+> **Avoiding Port Conflicts**: If you're already running another app on port 9090, simply change the first number in the YAML (e.g., `"9090:80"`) and use that same number (`9090`) in the Portal Configuration.
 
 ## 🛠️ Features
 - **TrueNAS Ready**: Standard Docker Compose setup.

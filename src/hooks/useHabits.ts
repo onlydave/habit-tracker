@@ -5,6 +5,18 @@ const STORAGE_KEY_HABITS = 'habit_tracker_habits';
 const STORAGE_KEY_COMPLETIONS = 'habit_tracker_completions';
 const API_URL = '/api/data';
 
+// Fallback for crypto.randomUUID in non-secure (HTTP) contexts
+const generateUUID = () => {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+};
+
 export const useHabits = () => {
     const [habits, setHabits] = useState<Habit[]>(() => {
         const saved = localStorage.getItem(STORAGE_KEY_HABITS);
@@ -56,7 +68,7 @@ export const useHabits = () => {
 
     const addHabit = (name: string, color: string, cadence: number) => {
         const newHabit: Habit = {
-            id: crypto.randomUUID(),
+            id: generateUUID(),
             name,
             color,
             cadence,

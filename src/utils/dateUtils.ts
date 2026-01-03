@@ -1,4 +1,4 @@
-import { format, subDays, eachDayOfInterval, parseISO, isSameDay } from 'date-fns';
+import { format, subDays, eachDayOfInterval, parseISO } from 'date-fns';
 
 export const formatDate = (date: Date): string => {
     return format(date, 'yyyy-MM-dd');
@@ -44,18 +44,21 @@ export const getDaysUntilNextDue = (
         .map(c => parseISO(c.date))
         .sort((a, b) => b.getTime() - a.getTime());
 
-    if (habitCompletions.length === 0) return null;
-
-    const lastCompletion = habitCompletions.find(c => c.getTime() <= current.getTime());
+    // Only show countdown/star if the habit has been completed at least once in the past
+    const lastCompletion = habitCompletions.find(c => c.getTime() < current.getTime());
     if (!lastCompletion) return null;
-
-    if (isSameDay(lastCompletion, current)) return 0;
 
     const diffTime = current.getTime() - lastCompletion.getTime();
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-    const remaining = (cadence - (diffDays % cadence)) % cadence;
-    return remaining;
+    // If it's the exact day it's due, return 0 (Star)
+    if (diffDays === cadence) return 0;
+
+    // If it's PAST the due day, show nothing (unselected)
+    if (diffDays > cadence) return null;
+
+    // Otherwise show countdown
+    return cadence - diffDays;
 };
 
 export const getStreakForDate = (

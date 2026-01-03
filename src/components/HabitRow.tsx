@@ -53,11 +53,19 @@ export const HabitRow = ({ habit, dates, completions, onToggle, onEdit }: HabitR
             })}
 
             {(() => {
+                const todayStr = formatDate(new Date());
                 const completedToday = completions.some(
-                    c => c.habitId === habit.id && c.date === formatDate(new Date())
+                    c => c.habitId === habit.id && c.date === todayStr
                 );
+                const daysUntilDueToday = getDaysUntilNextDue(habit.id, habit.cadence, todayStr, completions);
+
+                // Dim if already completed TODAY
+                // OR if if it's a cadence habit and not yet due (daysUntilDueToday > 0)
+                // Note: stars (0) and overdue (null) should NOT be dimmed.
+                const isDoneOrNotDue = completedToday || (habit.cadence > 1 && daysUntilDueToday !== null && daysUntilDueToday > 0);
+
                 return (
-                    <div className={`${styles.habitInfo} ${completedToday ? styles.completedToday : ''}`}>
+                    <div className={`${styles.habitInfo} ${isDoneOrNotDue ? styles.completedToday : ''}`}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                             <span className={styles.habitName}>{habit.name}</span>
                             <button

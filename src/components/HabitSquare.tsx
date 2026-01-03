@@ -30,6 +30,7 @@ export const HabitSquare = ({
                 ${inactive ? styles.inactive : ''} 
                 ${offCadence ? styles.offCadence : ''}
                 ${isToday ? styles.todaySquare : ''}
+                ${label === 0 ? styles.star : ''}
             `}
             style={{
                 '--habit-color': color,
@@ -51,7 +52,7 @@ export const HabitSquare = ({
                 />
             ) : (
                 label !== null && label !== undefined && (
-                    <span className={styles.label}>{label === 0 ? '★' : `+${label}`}</span>
+                    <span className={styles.label}>{label === 0 ? '★' : `${label}`}</span>
                 )
             )}
         </motion.div>

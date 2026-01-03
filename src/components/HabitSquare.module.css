@@ -56,6 +56,12 @@
     opacity: 0.8;
 }
 
+/* Neutral star background (grey instead of habit color) */
+.offCadence.star:not(.completed) {
+    background-color: var(--square-empty);
+    opacity: 0.6;
+}
+
 /* Inactive squares (before creation date) just get low opacity, no color */
 .inactive {
     opacity: 0.2;

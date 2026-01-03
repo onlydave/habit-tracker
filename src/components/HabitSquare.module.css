@@ -1,0 +1,59 @@
+.square {
+    width: 60px;
+    /* Match squareWrapper width */
+    height: 60px;
+    /* Match squareWrapper height */
+    background-color: var(--square-empty);
+    /* No border-radius for tight grid */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.1s, opacity 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Very subtle border for separation */
+    flex-shrink: 0;
+    position: relative;
+}
+
+.square:hover {
+    border-color: var(--text-secondary);
+    z-index: 5;
+}
+
+.square.completed {
+    background-color: var(--habit-color);
+    border-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    /* Removed !important to allow inline override */
+}
+
+.inner {
+    width: 60%;
+    height: 60%;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 2px;
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+/* Off-cadence squares (countdown squares) get the faint color */
+.offCadence:not(.completed) {
+    opacity: 0.25;
+    background-color: var(--habit-color);
+}
+
+.offCadence .label {
+    color: white;
+    opacity: 0.8;
+}
+
+/* Inactive squares (before creation date) just get low opacity, no color */
+.inactive {
+    opacity: 0.2;
+}

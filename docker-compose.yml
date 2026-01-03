@@ -1,0 +1,12 @@
+services:
+  habit-tracker:
+    build: .
+    container_name: habit-tracker
+    ports:
+      - "8080:80"
+    volumes:
+      - habit-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  habit-data:

@@ -1,0 +1,67 @@
+.row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    width: max-content;
+    min-width: 100%;
+}
+
+.habitInfo {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    position: sticky;
+    left: 0;
+    background-color: var(--bg-color);
+    z-index: 10;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color);
+}
+
+.habitName {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.cadenceLabel {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.editBtn {
+    background: none;
+    border: none;
+    padding: 4px;
+    color: var(--text-secondary);
+    opacity: 0;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.editBtn:hover {
+    background-color: var(--panel-bg);
+    color: var(--text-primary);
+}
+
+.row:hover .editBtn {
+    opacity: 1;
+}
+
+.squareWrapper {
+    width: 60px;
+    height: 60px;
+    /* Ensure fixed height for tight vertical fit */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    /* Remove padding for tight grid */
+}
+
+.squareWrapper.today {
+    background-color: rgba(88, 166, 255, 0.05);
+}

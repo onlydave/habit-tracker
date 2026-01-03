@@ -84,8 +84,8 @@ export const useHabits = () => {
         }
     };
 
-    const updateHabit = (id: string, name: string, color: string, cadence: number) => {
-        setHabits(prev => prev.map(h => h.id === id ? { ...h, name, color, cadence } : h));
+    const updateHabit = (id: string, updates: Partial<Omit<Habit, 'id'>>) => {
+        setHabits(prev => prev.map(h => h.id === id ? { ...h, ...updates } : h));
     };
 
     const toggleCompletion = (habitId: string, date: string) => {

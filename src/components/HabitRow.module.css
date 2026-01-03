@@ -8,15 +8,22 @@
 
 .habitInfo {
     width: 250px;
+    height: 60px;
+    /* Enforce total height to match squares */
     display: flex;
     flex-direction: column;
-    padding: 1rem 2rem;
+    justify-content: center;
+    /* Center content vertically */
+    padding: 0 2rem;
+    /* Remove vertical padding, use height + justify-content */
     position: sticky;
-    left: 0;
+    right: 0;
+    /* Changed from left: 0 */
     background-color: var(--bg-color);
     z-index: 10;
     flex-shrink: 0;
-    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    /* Changed from border-right */
 }
 
 .habitName {
@@ -26,8 +33,10 @@
 }
 
 .cadenceLabel {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
+    line-height: 1.2;
+    margin-top: 2px;
 }
 
 .editBtn {
@@ -39,15 +48,32 @@
     transition: opacity 0.2s;
     cursor: pointer;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.editBtn:hover {
-    background-color: var(--panel-bg);
-    color: var(--text-primary);
+@media (hover: hover) {
+    .editBtn:hover {
+        background-color: var(--panel-bg);
+        color: var(--text-primary);
+    }
+
+    .editBtn {
+        opacity: 0;
+    }
+
+    .row:hover .editBtn {
+        opacity: 1;
+    }
 }
 
-.row:hover .editBtn {
-    opacity: 1;
+@media (hover: none) {
+    .editBtn {
+        opacity: 0.8;
+        padding: 8px;
+        background-color: var(--panel-bg);
+    }
 }
 
 .squareWrapper {
@@ -63,5 +89,13 @@
 }
 
 .squareWrapper.today {
+    width: 90px;
+    /* 1.5x width */
     background-color: rgba(88, 166, 255, 0.05);
+}
+
+.completedToday .habitName,
+.completedToday .cadenceLabel {
+    opacity: 0.4;
+    transition: opacity 0.2s;
 }

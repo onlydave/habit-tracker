@@ -1,58 +1,68 @@
-import { useState, useRef, useEffect } from 'react';
-import { format } from 'date-fns';
+import { useState, useEffect } from 'react';
 import { useHabits } from './hooks/useHabits';
-import { getHistoryRange, getDaysUntilNextDue } from './utils/dateUtils';
 import { HabitRow } from './components/HabitRow';
 import { DateHeader } from './components/DateHeader';
 import { HabitModal } from './components/HabitModal';
+import { getHistoryRange, formatDate } from './utils/dateUtils';
+import { format } from 'date-fns';
 import { Plus } from 'lucide-react';
 import { Reorder } from 'framer-motion';
-import type { Habit } from './types';
+import styles from './components/HabitRow.module.css'; // Reuse habit row styles for the add button row
 
 function App() {
   const { habits, completions, toggleCompletion, addHabit, updateHabit, deleteHabit, reorderHabits } = useHabits();
-  const [historyDays] = useState(30);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingHabit, setEditingHabit] = useState<Habit | undefined>(undefined);
-  const dates = getHistoryRange(historyDays);
+  const [editingHabit, setEditingHabit] = useState<any>(null);
+  const [historyDays] = useState(45); // Support longer history
+  const [dates, setDates] = useState<Date[]>(getHistoryRange(historyDays));
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const scrollToToday = () => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const todayIndex = dates.findIndex(d =>
-        format(d, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')
-      );
-
-      if (todayIndex !== -1) {
-        setTimeout(() => {
-          const scrollPos = 250 + (todayIndex * 60) - (container.clientWidth / 2) + 30;
-          container.scrollTo({ left: scrollPos, behavior: 'smooth' });
-        }, 100);
+  // Auto-scroll to Today
+  useEffect(() => {
+    const scrollToToday = () => {
+      // Find the today column in the DateHeader
+      const todayElement = document.querySelector(`.${styles.today}`);
+      if (todayElement) {
+        todayElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
+    };
+
+    // Initial scroll
+    setTimeout(scrollToToday, 500);
+
+    // Refresh dates and scroll on date change
+    const interval = setInterval(() => {
+      const newDates = getHistoryRange(historyDays);
+      setDates(newDates);
+      scrollToToday();
+    }, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, [historyDays]);
+
+  const habitsDueToday = habits.filter(h => {
+    // For now simple logic: if not completed today
+    return !completions.some(c => c.habitId === h.id && c.date === formatDate(new Date()));
+  }).length;
+
+  const handleEdit = (habit: any) => {
+    setEditingHabit(habit);
+    setIsModalOpen(true);
+  };
+
+  const handleSave = (name: string, color: string, cadence: number) => {
+    if (editingHabit) {
+      updateHabit(editingHabit.id, { name, color, cadence });
+    } else {
+      addHabit(name, color, cadence);
     }
   };
 
-  useEffect(() => {
-    scrollToToday();
-  }, [dates.length]);
-
-  const [, setTime] = useState(Date.now());
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(Date.now());
-      scrollToToday();
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const todayStr = format(new Date(), 'yyyy-MM-dd');
-  const habitsDueToday = habits.filter(h => {
-    const isDue = (getDaysUntilNextDue(h.id, h.cadence, todayStr, completions) ?? 0) === 0;
-    const isCompleted = completions.some(c => c.habitId === h.id && c.date === todayStr);
-    return isDue && !isCompleted;
-  }).length;
+  const handleDelete = () => {
+    if (editingHabit && window.confirm(`Delete "${editingHabit.name}"? This cannot be undone.`)) {
+      deleteHabit(editingHabit.id);
+      setIsModalOpen(false);
+    }
+  };
 
   return (
     <div className="app-container">
@@ -83,59 +93,56 @@ function App() {
         </p>
       </header>
 
-      <div className="habit-grid-container" style={{
-        flex: 1,
-        overflow: 'auto',
-        position: 'relative'
-      }} ref={scrollContainerRef}>
-        <div style={{ display: 'flex', flexDirection: 'column', width: 'max-content', minWidth: '100%' }}>
-          <DateHeader dates={dates} />
+      <div className="habit-grid-container" style={{ flex: 1, overflow: 'auto', position: 'relative' }}>
+        <DateHeader dates={dates} />
 
-          <Reorder.Group axis="y" values={habits} onReorder={reorderHabits}>
-            {habits.map((habit) => (
-              <Reorder.Item key={habit.id} value={habit} style={{ listStyle: 'none' }}>
-                <HabitRow
-                  habit={habit}
-                  dates={dates}
-                  completions={completions}
-                  onToggle={toggleCompletion}
-                  onEdit={(h) => {
-                    setEditingHabit(h);
-                    setIsModalOpen(true);
-                  }}
-                />
-              </Reorder.Item>
-            ))}
-          </Reorder.Group>
+        <Reorder.Group axis="y" values={habits} onReorder={reorderHabits}>
+          {habits.map((habit) => (
+            <Reorder.Item key={habit.id} value={habit} style={{ listStyle: 'none' }}>
+              <HabitRow
+                habit={habit}
+                dates={dates}
+                completions={completions}
+                onToggle={toggleCompletion}
+                onEdit={handleEdit}
+              />
+            </Reorder.Item>
+          ))}
+        </Reorder.Group>
 
-          <div style={{ display: 'flex', alignItems: 'center', minWidth: '100%' }}>
+        {/* Add Habit row at the bottom */}
+        <div className={styles.row} style={{ borderBottom: 'none' }}>
+          <div style={{
+            width: `${(dates.length - 1) * 60 + 90}px`,
+            flexShrink: 0
+          }}></div>
+          <div
+            className={styles.habitInfo}
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              cursor: 'pointer',
+              borderLeft: 'none',
+              backgroundColor: 'var(--bg-color)'
+            }}
+            onClick={() => {
+              setEditingHabit(null);
+              setIsModalOpen(true);
+            }}
+          >
             <div style={{
-              width: 250,
-              padding: '1rem 2rem',
-              position: 'sticky',
-              left: 0,
-              backgroundColor: 'var(--bg-color)',
-              zIndex: 10,
-              borderRight: '1px solid var(--border-color)'
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              color: 'var(--text-secondary)',
+              padding: '0.5rem 1rem',
+              border: '1px dashed var(--border-color)',
+              borderRadius: '8px',
+              width: '100%',
+              justifyContent: 'center'
             }}>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'none',
-                  border: '1px dashed var(--border-color)',
-                  color: 'var(--text-secondary)',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '8px',
-                  fontSize: '0.9rem',
-                  width: '100%'
-                }}
-              >
-                <Plus size={16} />
-                Add Habit
-              </button>
+              <Plus size={18} />
+              <span style={{ fontWeight: 600 }}>Add Habit</span>
             </div>
           </div>
         </div>
@@ -143,23 +150,10 @@ function App() {
 
       {isModalOpen && (
         <HabitModal
-          onClose={() => {
-            setIsModalOpen(false);
-            setEditingHabit(undefined);
-          }}
-          onSave={(name, color, cadence) => {
-            if (editingHabit) {
-              updateHabit(editingHabit.id, name, color, cadence);
-            } else {
-              addHabit(name, color, cadence);
-            }
-          }}
-          onDelete={editingHabit ? () => {
-            deleteHabit(editingHabit.id);
-            setIsModalOpen(false);
-            setEditingHabit(undefined);
-          } : undefined}
           initialData={editingHabit}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSave}
+          onDelete={handleDelete}
         />
       )}
     </div>

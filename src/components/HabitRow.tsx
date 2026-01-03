@@ -18,20 +18,6 @@ export const HabitRow = ({ habit, dates, completions, onToggle, onEdit }: HabitR
 
     return (
         <div className={styles.row}>
-            <div className={styles.habitInfo}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <span className={styles.habitName}>{habit.name}</span>
-                    <button
-                        onClick={() => onEdit(habit)}
-                        className={styles.editBtn}
-                    >
-                        <Edit2 size={14} />
-                    </button>
-                </div>
-                {habit.cadence > 1 && (
-                    <span className={styles.cadenceLabel}>Every {habit.cadence} days</span>
-                )}
-            </div>
             {dates.map((date) => {
                 const dateStr = formatDate(date);
                 const completed = completions.some(
@@ -60,10 +46,33 @@ export const HabitRow = ({ habit, dates, completions, onToggle, onEdit }: HabitR
                             label={daysUntilDue}
                             opacity={visualOpacity}
                             onClick={() => onToggle(habit.id, dateStr)}
+                            isToday={isToday}
                         />
                     </div>
                 );
             })}
+
+            {(() => {
+                const completedToday = completions.some(
+                    c => c.habitId === habit.id && c.date === formatDate(new Date())
+                );
+                return (
+                    <div className={`${styles.habitInfo} ${completedToday ? styles.completedToday : ''}`}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                            <span className={styles.habitName}>{habit.name}</span>
+                            <button
+                                onClick={() => onEdit(habit)}
+                                className={styles.editBtn}
+                            >
+                                <Edit2 size={14} />
+                            </button>
+                        </div>
+                        {habit.cadence > 1 && (
+                            <span className={styles.cadenceLabel}>Every {habit.cadence} days</span>
+                        )}
+                    </div>
+                );
+            })()}
         </div>
     );
 };

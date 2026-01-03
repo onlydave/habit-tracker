@@ -9,16 +9,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s, transform 0.1s, opacity 0.2s;
+    transition: background-color 0.2s, transform 0.1s, opacity 0.2s, width 0.2s;
     border: 1px solid rgba(255, 255, 255, 0.05);
     /* Very subtle border for separation */
     flex-shrink: 0;
     position: relative;
 }
 
-.square:hover {
-    border-color: var(--text-secondary);
-    z-index: 5;
+@media (hover: hover) {
+    .square:hover {
+        border-color: var(--text-secondary);
+        z-index: 5;
+    }
 }
 
 .square.completed {
@@ -33,6 +35,7 @@
     height: 60%;
     background-color: rgba(255, 255, 255, 0.02);
     border-radius: 2px;
+    transition: width 0.2s, height 0.2s;
 }
 
 .label {
@@ -44,7 +47,7 @@
 
 /* Off-cadence squares (countdown squares) get the faint color */
 .offCadence:not(.completed) {
-    opacity: 0.25;
+    opacity: 0.15;
     background-color: var(--habit-color);
 }
 

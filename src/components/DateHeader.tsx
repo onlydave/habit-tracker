@@ -8,21 +8,24 @@ interface DateHeaderProps {
 export const DateHeader = ({ dates }: DateHeaderProps) => {
     return (
         <div className={styles.header}>
-            <div className={styles.stickySpacer}>
-                <span className={styles.monthLabel}>
-                    {/* {format(dates[Math.floor(dates.length / 2)], 'MMMM yyyy')} */}
-                </span>
-            </div>
             {dates.map((date) => {
                 const isToday = format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd');
 
                 return (
-                    <div key={date.toISOString()} className={`${styles.dateItem} ${isToday ? styles.today : ''}`}>
+                    <div
+                        key={date.toISOString()}
+                        className={`${styles.dateItem} ${isToday ? styles.today : ''}`}
+                    >
                         <span className={styles.dayName}>{format(date, 'EEE')}</span>
                         <span className={styles.dayNumber}>{format(date, 'd')}</span>
                     </div>
                 );
             })}
+            <div className={styles.stickySpacer}>
+                <span className={styles.monthLabel}>
+                    {/* {format(dates[Math.floor(dates.length / 2)], 'MMMM yyyy')} */}
+                </span>
+            </div>
         </div>
     );
 };

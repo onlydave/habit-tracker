@@ -104,7 +104,9 @@
     transition: all 0.2s;
 }
 
-.deleteBtn:hover {
-    background-color: var(--habit-red);
-    color: white;
+@media (hover: hover) {
+    .deleteBtn:hover {
+        background-color: var(--habit-red);
+        color: white;
+    }
 }

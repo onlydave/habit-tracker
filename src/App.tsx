@@ -3,7 +3,7 @@ import { useHabits } from './hooks/useHabits';
 import { HabitRow } from './components/HabitRow';
 import { DateHeader } from './components/DateHeader';
 import { HabitModal } from './components/HabitModal';
-import { getHistoryRange, formatDate } from './utils/dateUtils';
+import { getHistoryRange, formatDate, getDaysUntilNextDue } from './utils/dateUtils';
 import { format } from 'date-fns';
 import { Plus } from 'lucide-react';
 import { Reorder } from 'framer-motion';
@@ -40,8 +40,17 @@ function App() {
   }, [historyDays]);
 
   const habitsDueToday = habits.filter(h => {
-    // For now simple logic: if not completed today
-    return !completions.some(c => c.habitId === h.id && c.date === formatDate(new Date()));
+    const todayStr = formatDate(new Date());
+    const isCompletedToday = completions.some(c => c.habitId === h.id && c.date === todayStr);
+
+    if (isCompletedToday) return false;
+
+    // For cadence 1, it's always "due" if not completed
+    if (h.cadence <= 1) return true;
+
+    const daysUntilDue = getDaysUntilNextDue(h.id, h.cadence, todayStr, completions);
+    // Due today (0) or Overdue (null) should be counted
+    return daysUntilDue === 0 || daysUntilDue === null;
   }).length;
 
   const handleEdit = (habit: any) => {

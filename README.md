@@ -1,10 +1,13 @@
 # Habit Tracker
 
+![Project Screenshot](./screenshots/main.png)
+
 A simple, edge-to-edge habit tracker designed for TrueNAS SCALE and local development.
 
 ## 🚀 Quick Start
 
 ### Development Mode
+
 
 To start both the frontend (Vite) and the backend (Express) concurrently:
 

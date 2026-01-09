@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-color: #0d1117;
+  --color-panel-bg: #161b22;
+  --color-text-primary: #f0f6fc;
+  --color-text-secondary: #8b949e;
+  --color-border-color: #30363d;
+  --color-square-empty: #21262d;
+  --color-accent-color: #58a6ff;
+
+  /* Habit Colors */
+  --color-habit-red: #f85149;
+  --color-habit-orange: #d29922;
+  --color-habit-amber: #fbbf24;
+  --color-habit-yellow: #facc15;
+  --color-habit-lime: #84cc16;
+  --color-habit-green: #3fb950;
+  --color-habit-emerald: #10b981;
+  --color-habit-teal: #14b8a6;
+  --color-habit-cyan: #06b6d4;
+  --color-habit-sky: #0ea5e9;
+  --color-habit-blue: #388bfd;
+  --color-habit-indigo: #6366f1;
+  --color-habit-violet: #8b5cf6;
+  --color-habit-purple: #bc8cff;
+  --color-habit-fuchsia: #d946ef;
+  --color-habit-pink: #db61a2;
+  --color-habit-rose: #f43f5e;
+  --color-habit-slate: #64748b;
+  --color-habit-silver: #94a3b8;
+  --color-habit-brown: #78350f;
+}
+
+/* Custom properties for consistency, though tailwind variables above make them available as utilities */
+:root {
+  --bg-color: #0d1117;
+  --panel-bg: #161b22;
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --border-color: #30363d;
+  --square-empty: #21262d;
+  --accent-color: #58a6ff;
+
+  /* Habit Colors */
+  --habit-red: #f85149;
+  --habit-orange: #d29922;
+  --habit-amber: #fbbf24;
+  --habit-yellow: #facc15;
+  --habit-lime: #84cc16;
+  --habit-green: #3fb950;
+  --habit-emerald: #10b981;
+  --habit-teal: #14b8a6;
+  --habit-cyan: #06b6d4;
+  --habit-sky: #0ea5e9;
+  --habit-blue: #388bfd;
+  --habit-indigo: #6366f1;
+  --habit-violet: #8b5cf6;
+  --habit-purple: #bc8cff;
+  --habit-fuchsia: #d946ef;
+  --habit-pink: #db61a2;
+  --habit-rose: #f43f5e;
+  --habit-slate: #64748b;
+  --habit-silver: #94a3b8;
+  --habit-brown: #78350f;
+
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+}
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}

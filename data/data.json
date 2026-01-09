@@ -1,137 +1,57 @@
 {
   "habits": [
     {
-      "id": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "name": "Vitamins",
-      "color": "violet",
-      "cadence": 1,
-      "createdAt": 1767461591464
-    },
-    {
-      "id": "1a0ee257-f5bc-44c0-b017-d482275bcb1f",
-      "name": "Medication",
-      "color": "red",
-      "cadence": 7,
-      "createdAt": 1767461613554
-    },
-    {
-      "id": "a5ef0847-2d1d-4519-89df-0d9a0de61955",
-      "name": "Stretch",
-      "color": "amber",
-      "cadence": 1,
-      "createdAt": 1767465183627
-    },
-    {
-      "id": "8b7d927f-67b8-4f8f-aa8d-1a1cc6dbd7cf",
-      "name": "Mop Floors",
+      "id": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "name": "read book",
       "color": "blue",
-      "cadence": 4,
-      "createdAt": 1767467533987
-    },
-    {
-      "id": "32d73cac-5957-435f-80ce-363092f7ba89",
-      "name": "Bins",
-      "color": "blue",
-      "cadence": 7,
-      "createdAt": 1767467592172
+      "cadence": 1,
+      "createdAt": 1767826804614
     }
   ],
   "completions": [
     {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2025-12-29"
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "date": "2026-01-06"
     },
     {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2026-01-02"
-    },
-    {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2026-01-01"
-    },
-    {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2025-12-28"
-    },
-    {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2025-12-27"
-    },
-    {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2025-12-31"
-    },
-    {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2025-12-24"
-    },
-    {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2025-12-30"
-    },
-    {
-      "habitId": "1a0ee257-f5bc-44c0-b017-d482275bcb1f",
-      "date": "2025-12-21"
-    },
-    {
-      "habitId": "a5ef0847-2d1d-4519-89df-0d9a0de61955",
-      "date": "2026-01-01"
-    },
-    {
-      "habitId": "a5ef0847-2d1d-4519-89df-0d9a0de61955",
-      "date": "2026-01-02"
-    },
-    {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
       "date": "2026-01-03"
     },
     {
-      "habitId": "a5ef0847-2d1d-4519-89df-0d9a0de61955",
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "date": "2026-01-05"
+    },
+    {
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "date": "2026-01-02"
+    },
+    {
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "date": "2025-12-31"
+    },
+    {
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "date": "2025-12-30"
+    },
+    {
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "date": "2025-12-29"
+    },
+    {
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "date": "2025-12-27"
+    },
+    {
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
       "date": "2025-12-26"
     },
     {
-      "habitId": "8b7d927f-67b8-4f8f-aa8d-1a1cc6dbd7cf",
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
       "date": "2025-12-28"
     },
     {
-      "habitId": "8b7d927f-67b8-4f8f-aa8d-1a1cc6dbd7cf",
-      "date": "2025-12-24"
-    },
-    {
-      "habitId": "a5ef0847-2d1d-4519-89df-0d9a0de61955",
-      "date": "2025-12-23"
-    },
-    {
-      "habitId": "8b7d927f-67b8-4f8f-aa8d-1a1cc6dbd7cf",
-      "date": "2026-01-01"
-    },
-    {
-      "habitId": "32d73cac-5957-435f-80ce-363092f7ba89",
-      "date": "2025-12-25"
-    },
-    {
-      "habitId": "1a0ee257-f5bc-44c0-b017-d482275bcb1f",
-      "date": "2025-12-28"
-    },
-    {
-      "habitId": "1a0ee257-f5bc-44c0-b017-d482275bcb1f",
-      "date": "2026-01-06"
-    },
-    {
-      "habitId": "a5ef0847-2d1d-4519-89df-0d9a0de61955",
-      "date": "2026-01-05"
-    },
-    {
-      "habitId": "a5ef0847-2d1d-4519-89df-0d9a0de61955",
-      "date": "2026-01-06"
-    },
-    {
-      "habitId": "32d73cac-5957-435f-80ce-363092f7ba89",
-      "date": "2026-01-05"
-    },
-    {
-      "habitId": "79bbf0e3-e8b1-46d4-8be7-470f54dbe037",
-      "date": "2026-01-05"
+      "habitId": "d9c2f3ef-4278-431c-854b-a5596db2d2f5",
+      "date": "2026-01-04"
     }
   ]
 }
